@@ -6,10 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import ru.shadowsparky.news.news.api.Api;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
+
 import com.google.android.material.navigation.NavigationView;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 public class ListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     NavigationView mNavigation;
@@ -43,26 +51,49 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
         menuItem.setChecked(true);
         switch (menuItem.getItemId()) {
             case R.id.football: {
+                check("football");
                 break;
             }
             case R.id.hockey: {
+                check("hockey");
                 break;
             }
             case R.id.tennis: {
+                check("tennis");
                 break;
             }
             case R.id.basketball: {
+                check("basketball");
                 break;
             }
             case R.id.volleyball: {
+                check("volleyball");
                 break;
             }
             case R.id.cybersport: {
+                check("cybersport");
                 break;
             }
         }
         mDrawer.closeDrawers();
         return true;
+    }
+
+    private void check(String category) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://mikonatoruri.win")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        Api api = retrofit.create(Api.class);
+        Observable.just("mock")
+                .observeOn(Schedulers.io())
+                .map(item -> api.getCategory(category))
+                .map(item -> item.blockingFirst())
+                .subscribe(
+                        next -> Log.println(Log.DEBUG, "MAIN_TAG", next.getEvents().toString()),
+                        error -> Log.println(Log.DEBUG, "MAIN_TAG", error.toString())
+                );
     }
 
     private void inflate() {
