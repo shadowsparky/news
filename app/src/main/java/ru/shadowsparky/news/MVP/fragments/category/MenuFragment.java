@@ -40,9 +40,7 @@ public class MenuFragment extends Fragment implements Category.View {
         super.onViewCreated(view, savedInstanceState);
         list = view.findViewById(R.id.category_list);
         refresher = view.findViewById(R.id.refresher);
-        refresher.setOnRefreshListener(()->{
-            presenter.onGetCategoryRequesting(category);
-        });
+        refresher.setOnRefreshListener(()-> presenter.onGetCategoryRequesting(category));
         presenter.onGetCategoryRequesting(category);
     }
 
