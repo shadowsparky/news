@@ -11,6 +11,7 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.shadowsparky.news.news.api.Api;
+import ru.shadowsparky.news.news.pojo.category.CategoryEvents;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +36,12 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
         mNavigation = findViewById(R.id.navigation_drawer);
         mDrawer = findViewById(R.id.drawer_layout);
         mNavigation.setNavigationItemSelectedListener(this);
-        inflate();
+        firstLaunch();
+    }
+
+    public void firstLaunch() {
+        mNavigation.setCheckedItem(0);
+        check("football");
     }
 
     @Override
@@ -91,13 +97,17 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
                 .map(item -> api.getCategory(category))
                 .map(item -> item.blockingFirst())
                 .subscribe(
-                        next -> Log.println(Log.DEBUG, "MAIN_TAG", next.getEvents().toString()),
+                        next -> inflate(next, category),
                         error -> Log.println(Log.DEBUG, "MAIN_TAG", error.toString())
                 );
     }
 
-    private void inflate() {
+    private void inflate(CategoryEvents events, String category) {
         MenuFragment fragment = new MenuFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("EVENTS", events);
+        bundle.putString("CATEGORY", category);
+        fragment.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content, fragment)
