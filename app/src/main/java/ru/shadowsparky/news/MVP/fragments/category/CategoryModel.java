@@ -1,4 +1,6 @@
 package ru.shadowsparky.news.MVP.fragments.category;
+import android.util.Log;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -21,7 +23,10 @@ public class CategoryModel implements Category.Model {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
                 next -> callback.handleRequest(next),
-                error -> callback.handleRequest(null)
+                error -> {
+                    Log.println(Log.DEBUG, "MAIN_TAG", error.toString());
+                    callback.handleRequest(null);
+                }
         );
     }
 }

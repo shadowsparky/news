@@ -14,6 +14,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import ru.shadowsparky.news.MVP.fragments.category.MenuFragment;
 
 public class ListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    public static final String FOOTBALL_ITEM = "football";
+    public static final String HOCKEY_ITEM = "hockey";
+    public static final String TENNIS_ITEM = "tennis";
+    public static final String BASKETBALL_ITEM = "basketball";
+    public static final String VOLLEYBALL_ITEM = "volleyball";
+    public static final String CYBERSPORT_ITEM = "cybersport";
     NavigationView mNavigation;
     DrawerLayout mDrawer;
 
@@ -34,8 +40,9 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void firstLaunch() {
-        mNavigation.setCheckedItem(0);
-        inflate("football");
+        mNavigation.setCheckedItem(R.id.football);
+        inflate(FOOTBALL_ITEM);
+        setTitle("Футбол");
     }
 
     @Override
@@ -51,30 +58,31 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
         menuItem.setChecked(true);
         switch (menuItem.getItemId()) {
             case R.id.football: {
-                inflate("football");
+                inflate(FOOTBALL_ITEM);
                 break;
             }
             case R.id.hockey: {
-                inflate("hockey");
+                inflate(HOCKEY_ITEM);
                 break;
             }
             case R.id.tennis: {
-                inflate("tennis");
+                inflate(TENNIS_ITEM);
                 break;
             }
             case R.id.basketball: {
-                inflate("basketball");
+                inflate(BASKETBALL_ITEM);
                 break;
             }
             case R.id.volleyball: {
-                inflate("volleyball");
+                inflate(VOLLEYBALL_ITEM);
                 break;
             }
             case R.id.cybersport: {
-                inflate("cybersport");
+                inflate(CYBERSPORT_ITEM);
                 break;
             }
         }
+        setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
         return true;
     }
