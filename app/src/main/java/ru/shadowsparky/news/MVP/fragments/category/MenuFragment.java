@@ -1,6 +1,6 @@
-package ru.shadowsparky.news.fragments.category;
+package ru.shadowsparky.news.MVP.fragments.category;
 
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,15 +12,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import ru.shadowsparky.news.MVP.activity.event_info.EventView;
+import ru.shadowsparky.news.OnCardClickedCallback;
 import ru.shadowsparky.news.R;
 import ru.shadowsparky.news.adapter.NewsList;
+import ru.shadowsparky.news.pojo.category.CategoryEvents;
+import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
 
 public class MenuFragment extends Fragment implements Category.View {
-    NewsList adapter;
     RecyclerView list;
     Category.Presenter presenter;
+    SwipeRefreshLayout refresher;
     String category;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +39,17 @@ public class MenuFragment extends Fragment implements Category.View {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         list = view.findViewById(R.id.category_list);
+        refresher = view.findViewById(R.id.refresher);
+        refresher.setOnRefreshListener(()->{
+            presenter.onGetCategoryRequesting(category);
+        });
         presenter.onGetCategoryRequesting(category);
     }
 
     @Override
-    public void setAdapter(NewsList adapter) {
+    public void setAdapter(CategoryEvents events, OnCardClickedCallback callback) {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        NewsList adapter = new NewsList(events, callback);
         list.setLayoutManager(llm);
         list.setHasFixedSize(false);
         list.setAdapter(adapter);
@@ -51,11 +62,19 @@ public class MenuFragment extends Fragment implements Category.View {
         } else {
             list.setVisibility(View.VISIBLE);
         }
+        refresher.setRefreshing(result);
     }
 
     @Override
     public void showToast(int id) {
         Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void navigateToEventInfo(CategoryResponse response) {
+        Intent i = new Intent(getContext(), EventView.class);
+        i.putExtra("RESPONSE", response);
+        startActivity(i);
     }
 
     @Override

@@ -1,7 +1,4 @@
-package ru.shadowsparky.news.fragments.category;
-
-import android.util.Log;
-
+package ru.shadowsparky.news.MVP.fragments.category;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

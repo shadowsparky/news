@@ -1,4 +1,9 @@
-package ru.shadowsparky.news.activity;
+package ru.shadowsparky.news;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -6,14 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import ru.shadowsparky.news.R;
-import ru.shadowsparky.news.fragments.category.MenuFragment;
-
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-
-import com.google.android.material.navigation.NavigationView;
+import ru.shadowsparky.news.MVP.fragments.category.MenuFragment;
 
 public class ListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     NavigationView mNavigation;

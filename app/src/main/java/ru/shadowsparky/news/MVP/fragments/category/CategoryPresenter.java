@@ -1,8 +1,7 @@
-package ru.shadowsparky.news.fragments.category;
-
+package ru.shadowsparky.news.MVP.fragments.category;
 
 import ru.shadowsparky.news.R;
-import ru.shadowsparky.news.adapter.NewsList;
+import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
 public class CategoryPresenter implements Category.Presenter {
     Category.View view;
@@ -18,12 +17,16 @@ public class CategoryPresenter implements Category.Presenter {
         view.setLoading(true);
         CategoryModel.RequestCallback callback = (result) -> {
             if (result != null) {
-                view.setAdapter(new NewsList(result, category));
+                view.setAdapter(result, this::onCardClicked);
             } else {
                 view.showToast(R.string.connection_error);
             }
             view.setLoading(false);
         };
         model.getCategoryRequest(callback, category);
+    }
+
+    public void onCardClicked(CategoryResponse response) {
+        view.navigateToEventInfo(response);
     }
 }
