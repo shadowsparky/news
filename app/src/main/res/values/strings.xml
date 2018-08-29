@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">News</string>
+    <string name="item_football">Футбол</string>
+    <string name="item_hockey">Хоккей</string>
+    <string name="item_tennis">Теннис</string>
+    <string name="item_basketball">Баскетболл</string>
+    <string name="item_volleyball">Волейбол</string>
+    <string name="item_cybersport">Киберспорт</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
