@@ -6,6 +6,7 @@
     <string name="item_basketball">Баскетболл</string>
     <string name="item_volleyball">Волейбол</string>
     <string name="item_cybersport">Киберспорт</string>
+    <string name="connection_error">При соединении с сервером произошла ошибка</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

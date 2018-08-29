@@ -1,4 +1,4 @@
-package ru.shadowsparky.news.news.adapter;
+package ru.shadowsparky.news.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +9,9 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import ru.shadowsparky.news.news.R;
-import ru.shadowsparky.news.news.pojo.category.CategoryEvents;
-import ru.shadowsparky.news.news.pojo.category.CategoryResponse;
+import ru.shadowsparky.news.R;
+import ru.shadowsparky.news.pojo.category.CategoryEvents;
+import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
 public class NewsList extends RecyclerView.Adapter<NewsList.MainViewHolder> {
 

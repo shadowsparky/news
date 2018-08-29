@@ -1,4 +1,4 @@
-package ru.shadowsparky.news.news.pojo.category;
+package ru.shadowsparky.news.pojo.category;
 
 import com.google.gson.annotations.SerializedName;
 
