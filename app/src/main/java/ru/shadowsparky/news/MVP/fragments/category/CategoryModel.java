@@ -18,8 +18,7 @@ public class CategoryModel implements Category.Model {
         Api api = new Requester().getApi();
         Observable.just(category)
         .observeOn(Schedulers.io())
-        .map(item -> api.getCategory(item))
-        .map(item -> item.blockingFirst())
+        .map(item -> api.getCategory(item).blockingFirst())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
                 next -> callback.handleRequest(next),

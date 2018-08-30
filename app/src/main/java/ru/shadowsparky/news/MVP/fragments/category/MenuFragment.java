@@ -72,6 +72,7 @@ public class MenuFragment extends Fragment implements Category.View {
     public void navigateToEventInfo(CategoryResponse response) {
         Intent i = new Intent(getContext(), EventView.class);
         i.putExtra("RESPONSE", response);
+        i.putExtra("CATEGORY", category);
         startActivity(i);
     }
 

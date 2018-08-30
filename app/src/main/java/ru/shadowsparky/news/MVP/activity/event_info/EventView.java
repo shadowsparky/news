@@ -2,6 +2,7 @@ package ru.shadowsparky.news.MVP.activity.event_info;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -27,6 +28,8 @@ public class EventView extends AppCompatActivity implements Event.View {
     CategoryResponse item;
     ProgressBar loading;
     RecyclerView list;
+    String category;
+    TextView teams;
     CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
@@ -34,23 +37,57 @@ public class EventView extends AppCompatActivity implements Event.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_view);
         item = (CategoryResponse) getIntent().getSerializableExtra("RESPONSE");
-        Toolbar toolbar = findViewById(R.id.event_toolbar);
+        category = getIntent().getStringExtra("CATEGORY");
         list = findViewById(R.id.event_articles_list);
+        teams = findViewById(R.id.event_teams);
+        loading = findViewById(R.id.event_loading);
+        presenter = new EventPresenter(this, new EventModel(item.getArticle()));
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        Toolbar toolbar = findViewById(R.id.event_toolbar);
         setSupportActionBar(toolbar);
+        toolbarInit();
+        Log.println(Log.DEBUG, "MAIN_TAG", "link: " + item.getArticle());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         getSupportActionBar().setTitle(R.string.event_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
-        loading = findViewById(R.id.event_loading);
-        presenter = new EventPresenter(this, new EventModel(item.getArticle()));
         presenter.onGetEventInfoRequest();
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        toolbarInit();
     }
 
     private void toolbarInit() {
         collapsingToolbarLayout.setTitle(getString(R.string.event_info));
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent)); // transperent color = #00000000
-        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.rgb(255, 255, 255)); //Color of your title
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.rgb(255, 255, 255));
+        switch (category) {
+            case "football": {
+                collapsingToolbarLayout.setBackgroundResource(R.drawable.football_cover);
+                break;
+            }
+            case "hockey": {
+                collapsingToolbarLayout.setBackgroundResource(R.drawable.hockey_cover);
+                break;
+            }
+            case "tennis": {
+                collapsingToolbarLayout.setBackgroundResource(R.drawable.tennis_cover);
+                break;
+            }
+            case "basketball": {
+                collapsingToolbarLayout.setBackgroundResource(R.drawable.basketball_cover);
+                break;
+            }
+            case "volleyball": {
+                collapsingToolbarLayout.setBackgroundResource(R.drawable.volleyball_cover);
+                break;
+            }
+            case "cybersport": {
+                collapsingToolbarLayout.setBackgroundResource(R.drawable.cybersport_cover);
+                break;
+            }
+        }
     }
 
     @Override
@@ -74,6 +111,9 @@ public class EventView extends AppCompatActivity implements Event.View {
     public void showErrorToast() {
         Toast.makeText(this, R.string.connection_error, Toast.LENGTH_SHORT).show();
         collapsingToolbarLayout.setTitle(getString(R.string.event_loading_error));
+        teams.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        teams.setText(R.string.event_loading_error);
+        collapsingToolbarLayout.setBackgroundResource(android.R.color.holo_red_light);
     }
 
     @Override

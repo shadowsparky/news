@@ -25,8 +25,7 @@ public class EventModel implements Event.Model {
         Api api = new Requester().getApi();
         Observable.just(link)
                 .observeOn(Schedulers.io())
-                .map(item -> api.getEventInfo(item))
-                .map(item -> item.blockingFirst())
+                .map(item -> api.getEventInfo(item).blockingFirst())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         next -> callback.handleRequest(next),
