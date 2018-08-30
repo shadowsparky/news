@@ -44,10 +44,10 @@ public class EventView extends AppCompatActivity implements Event.View {
         presenter = new EventPresenter(this, new EventModel(item.getArticle()));
         presenter.onGetEventInfoRequest();
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        test();
+        toolbarInit();
     }
 
-    private void test() {
+    private void toolbarInit() {
         collapsingToolbarLayout.setTitle(getString(R.string.event_info));
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent)); // transperent color = #00000000
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.rgb(255, 255, 255)); //Color of your title

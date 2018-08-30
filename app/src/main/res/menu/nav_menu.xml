@@ -3,27 +3,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/football"
-            android:icon="@drawable/soccer_icon"
+            android:icon="@drawable/ic_football_icon"
             android:title="@string/item_football" />
         <item
             android:id="@+id/hockey"
-            android:icon="@drawable/hockey_icon"
+            android:icon="@drawable/ic_hockey_icon"
             android:title="@string/item_hockey" />
         <item
             android:id="@+id/tennis"
-            android:icon="@drawable/tennis_icon"
+            android:icon="@drawable/ic_tennis_icon"
             android:title="@string/item_tennis" />
         <item
             android:id="@+id/basketball"
-            android:icon="@drawable/basketball_icon"
+            android:icon="@drawable/ic_basketball_icon"
             android:title="@string/item_basketball" />
         <item
             android:id="@+id/volleyball"
-            android:icon="@drawable/volleyball_icon"
+            android:icon="@drawable/ic_volleyball_icon"
             android:title="@string/item_volleyball" />
         <item
             android:id="@+id/cybersport"
-            android:icon="@drawable/cybersport_icon"
+            android:icon="@drawable/ic_cybersport_icon"
             android:title="@string/item_cybersport" />
     </group>
 </menu>
