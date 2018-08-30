@@ -16,9 +16,9 @@ public class CategoryModel implements Category.Model {
     @Override
     public void getCategoryRequest(RequestCallback callback, String category) {
         Api api = new Requester().getApi();
-        Observable.just("mock")
+        Observable.just(category)
         .observeOn(Schedulers.io())
-        .map(item -> api.getCategory(category))
+        .map(item -> api.getCategory(item))
         .map(item -> item.blockingFirst())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(

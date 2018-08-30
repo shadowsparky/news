@@ -23,9 +23,9 @@ public class EventModel implements Event.Model {
     @Override
     public void getEventInfo(GetEventInfoCallback callback) {
         Api api = new Requester().getApi();
-        Observable.just("mock")
+        Observable.just(link)
                 .observeOn(Schedulers.io())
-                .map(item -> api.getEventInfo(link))
+                .map(item -> api.getEventInfo(item))
                 .map(item -> item.blockingFirst())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

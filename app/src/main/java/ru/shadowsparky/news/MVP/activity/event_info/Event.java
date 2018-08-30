@@ -1,9 +1,13 @@
 package ru.shadowsparky.news.MVP.activity.event_info;
 
+import ru.shadowsparky.news.pojo.event_view.EventResponse;
+
 public interface Event {
     interface View {
         void setLoading(Boolean result);
-        void showToast(int id);
+        void showErrorToast();
+        void setAdapter(EventResponse response);
+        void setData(EventResponse response);
     }
     interface Presenter {
         void onGetEventInfoRequest();

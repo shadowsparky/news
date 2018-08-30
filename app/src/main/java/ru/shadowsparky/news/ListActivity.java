@@ -2,9 +2,7 @@ package ru.shadowsparky.news;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import com.google.android.material.navigation.NavigationView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,10 +34,10 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
         mNavigation = findViewById(R.id.navigation_drawer);
         mDrawer = findViewById(R.id.drawer_layout);
         mNavigation.setNavigationItemSelectedListener(this);
-        firstLaunch();
+        openFirstCategory();
     }
 
-    public void firstLaunch() {
+    public void openFirstCategory() {
         mNavigation.setCheckedItem(R.id.football);
         inflate(FOOTBALL_ITEM);
         setTitle("Футбол");

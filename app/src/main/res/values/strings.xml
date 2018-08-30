@@ -8,4 +8,5 @@
     <string name="item_cybersport">Киберспорт</string>
     <string name="connection_error">При соединении с сервером произошла ошибка</string>
     <string name="event_info">Информация о событии</string>
+    <string name="event_loading_error">Данные невозможно загрузить</string>
 </resources>

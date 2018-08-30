@@ -15,11 +15,11 @@ import ru.shadowsparky.news.R;
 import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
-public class NewsList extends RecyclerView.Adapter<NewsList.MainViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MainViewHolder> {
     List<CategoryResponse> events;
     OnCardClickedCallback callback;
 
-    public NewsList(CategoryEvents events, OnCardClickedCallback callback) {
+    public NewsAdapter(CategoryEvents events, OnCardClickedCallback callback) {
         this.events = events.getEvents();
         this.callback = callback;
     }

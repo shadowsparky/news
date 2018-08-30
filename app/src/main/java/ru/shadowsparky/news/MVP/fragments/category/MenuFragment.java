@@ -16,7 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import ru.shadowsparky.news.MVP.activity.event_info.EventView;
 import ru.shadowsparky.news.OnCardClickedCallback;
 import ru.shadowsparky.news.R;
-import ru.shadowsparky.news.adapter.NewsList;
+import ru.shadowsparky.news.adapter.NewsAdapter;
 import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
@@ -47,7 +47,7 @@ public class MenuFragment extends Fragment implements Category.View {
     @Override
     public void setAdapter(CategoryEvents events, OnCardClickedCallback callback) {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        NewsList adapter = new NewsList(events, callback);
+        NewsAdapter adapter = new NewsAdapter(events, callback);
         list.setLayoutManager(llm);
         list.setHasFixedSize(false);
         list.setAdapter(adapter);
