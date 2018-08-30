@@ -1,4 +1,4 @@
-package ru.shadowsparky.news.news;
+package ru.shadowsparky.news;
 
 import org.junit.Test;
 

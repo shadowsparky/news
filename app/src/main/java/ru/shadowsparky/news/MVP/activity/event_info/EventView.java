@@ -23,6 +23,13 @@ import ru.shadowsparky.news.pojo.category.CategoryResponse;
 import ru.shadowsparky.news.pojo.event_view.EventArticle;
 import ru.shadowsparky.news.pojo.event_view.EventResponse;
 
+import static ru.shadowsparky.news.ListActivity.BASKETBALL_ITEM;
+import static ru.shadowsparky.news.ListActivity.CYBERSPORT_ITEM;
+import static ru.shadowsparky.news.ListActivity.FOOTBALL_ITEM;
+import static ru.shadowsparky.news.ListActivity.HOCKEY_ITEM;
+import static ru.shadowsparky.news.ListActivity.TENNIS_ITEM;
+import static ru.shadowsparky.news.ListActivity.VOLLEYBALL_ITEM;
+
 public class EventView extends AppCompatActivity implements Event.View {
     Event.Presenter presenter;
     CategoryResponse item;
@@ -63,27 +70,27 @@ public class EventView extends AppCompatActivity implements Event.View {
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.rgb(255, 255, 255));
         switch (category) {
-            case "football": {
+            case FOOTBALL_ITEM: {
                 collapsingToolbarLayout.setBackgroundResource(R.drawable.football_cover);
                 break;
             }
-            case "hockey": {
+            case HOCKEY_ITEM: {
                 collapsingToolbarLayout.setBackgroundResource(R.drawable.hockey_cover);
                 break;
             }
-            case "tennis": {
+            case TENNIS_ITEM: {
                 collapsingToolbarLayout.setBackgroundResource(R.drawable.tennis_cover);
                 break;
             }
-            case "basketball": {
+            case BASKETBALL_ITEM: {
                 collapsingToolbarLayout.setBackgroundResource(R.drawable.basketball_cover);
                 break;
             }
-            case "volleyball": {
+            case VOLLEYBALL_ITEM: {
                 collapsingToolbarLayout.setBackgroundResource(R.drawable.volleyball_cover);
                 break;
             }
-            case "cybersport": {
+            case CYBERSPORT_ITEM: {
                 collapsingToolbarLayout.setBackgroundResource(R.drawable.cybersport_cover);
                 break;
             }

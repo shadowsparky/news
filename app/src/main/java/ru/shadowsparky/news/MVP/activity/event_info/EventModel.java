@@ -7,21 +7,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.shadowsparky.news.Requester;
 import ru.shadowsparky.news.api.Api;
-import ru.shadowsparky.news.pojo.event_view.EventResponse;
 
 public class EventModel implements Event.Model {
     String link;
-
-    interface GetEventInfoCallback {
-        void handleRequest(EventResponse response);
-    }
 
     public EventModel(String link) {
         this.link = link;
     }
 
     @Override
-    public void getEventInfo(GetEventInfoCallback callback) {
+    public void getEventInfo(Event.GetEventInfoCallback callback) {
         Api api = new Requester().getApi();
         Observable.just(link)
                 .observeOn(Schedulers.io())

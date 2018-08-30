@@ -12,7 +12,7 @@ public class EventPresenter implements Event.Presenter {
     @Override
     public void onGetEventInfoRequest() {
         view.setLoading(true);
-        EventModel.GetEventInfoCallback callback = response -> {
+        Event.GetEventInfoCallback callback = response -> {
             if (response != null) {
                 view.setAdapter(response);
                 view.setData(response);

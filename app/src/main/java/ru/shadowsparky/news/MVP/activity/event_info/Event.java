@@ -13,6 +13,10 @@ public interface Event {
         void onGetEventInfoRequest();
     }
     interface Model {
-        void getEventInfo(EventModel.GetEventInfoCallback callback);
+        void getEventInfo(GetEventInfoCallback callback);
+    }
+
+    interface GetEventInfoCallback {
+        void handleRequest(EventResponse response);
     }
 }
