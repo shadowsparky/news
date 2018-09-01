@@ -1,5 +1,6 @@
 package ru.shadowsparky.news.MVP.activity.event_info;
 
+import ru.shadowsparky.news.callbacks.Response;
 import ru.shadowsparky.news.pojo.event_view.EventResponse;
 
 public class EventPresenter implements Event.Presenter {
@@ -18,10 +19,11 @@ public class EventPresenter implements Event.Presenter {
     }
 
     @Override
-    public void onRequestHandled(EventResponse response) {
-        if (response != null) {
-            view.setAdapter(response);
-            view.setData(response);
+    public void onRequestHandled(Response response) {
+        if ((response != null) && (response instanceof EventResponse)) {
+            EventResponse eventResponse = (EventResponse) response;
+            view.setAdapter(eventResponse);
+            view.setData(eventResponse);
         } else {
             view.showErrorToast();
         }

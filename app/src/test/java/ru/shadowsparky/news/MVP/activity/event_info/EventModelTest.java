@@ -12,6 +12,8 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.internal.schedulers.ExecutorScheduler;
 import io.reactivex.plugins.RxJavaPlugins;
+import ru.shadowsparky.news.callbacks.ResponseHandler;
+import ru.shadowsparky.news.callbacks.Response;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -20,7 +22,7 @@ import static org.mockito.Mockito.verify;
 public class EventModelTest {
 
     Event.Model model;
-    Event.GetEventInfoCallback callback;
+    ResponseHandler callback;
 
     @BeforeClass
     public static void setUpRxSchedulers() {
@@ -42,12 +44,12 @@ public class EventModelTest {
     @Before
     public void setUp() throws Exception {
         model = new EventModel("example_link");
-        callback = mock(Event.GetEventInfoCallback.class);
+        callback = mock(ResponseHandler.class);
     }
 
     @Test
     public void getEventInfo() {
         model.getEventInfo(callback);
-        verify(callback).handleRequest(any());
+        verify(callback).handle(any(Response.class));
     }
 }

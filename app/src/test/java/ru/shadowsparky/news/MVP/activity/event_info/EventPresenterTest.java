@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import ru.shadowsparky.news.callbacks.ResponseHandler;
 import ru.shadowsparky.news.pojo.event_view.EventResponse;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -28,7 +29,7 @@ public class EventPresenterTest {
     @Test
     public void onGetEventInfoRequest() {
         presenter.onGetEventInfoRequest();
-        verify(model).getEventInfo(any(Event.GetEventInfoCallback.class));
+        verify(model).getEventInfo(any(ResponseHandler.class));
     }
 
     @Test

@@ -18,6 +18,7 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
     public static final String BASKETBALL_ITEM = "basketball";
     public static final String VOLLEYBALL_ITEM = "volleyball";
     public static final String CYBERSPORT_ITEM = "cybersport";
+    public static final String CATEGORY = "CATEGORY";
     NavigationView mNavigation;
     DrawerLayout mDrawer;
 
@@ -88,7 +89,7 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
     private void inflate(String category) {
         CategoryView fragment = new CategoryView();
         Bundle bundle = new Bundle();
-        bundle.putString("CATEGORY", category);
+        bundle.putString(CATEGORY, category);
         fragment.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()

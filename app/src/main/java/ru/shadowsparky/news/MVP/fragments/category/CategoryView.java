@@ -14,14 +14,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import ru.shadowsparky.news.MVP.activity.event_info.EventView;
-import ru.shadowsparky.news.OnCardClickedCallback;
 import ru.shadowsparky.news.R;
 import ru.shadowsparky.news.adapter.NewsAdapter;
+import ru.shadowsparky.news.callbacks.OnCardClicked;
 import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
+import static ru.shadowsparky.news.ListActivity.CATEGORY;
+
 
 public class CategoryView extends Fragment implements Category.View {
+    public static final String RESPONSE = "RESPONSE";
     RecyclerView list;
     Category.Presenter presenter;
     SwipeRefreshLayout refresher;
@@ -32,7 +35,7 @@ public class CategoryView extends Fragment implements Category.View {
         super.onCreate(savedInstanceState);
         presenter = new CategoryPresenter(this, new CategoryModel());
         Bundle arguments = getArguments();
-        category = arguments.getString("CATEGORY");
+        category = arguments.getString(CATEGORY);
     }
 
     @Override
@@ -45,7 +48,7 @@ public class CategoryView extends Fragment implements Category.View {
     }
 
     @Override
-    public void setAdapter(CategoryEvents events, OnCardClickedCallback callback) {
+    public void setAdapter(CategoryEvents events, OnCardClicked callback) {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         NewsAdapter adapter = new NewsAdapter(events, callback);
         list.setLayoutManager(llm);
@@ -71,8 +74,8 @@ public class CategoryView extends Fragment implements Category.View {
     @Override
     public void navigateToEventInfo(CategoryResponse response) {
         Intent i = new Intent(getContext(), EventView.class);
-        i.putExtra("RESPONSE", response);
-        i.putExtra("CATEGORY", category);
+        i.putExtra(RESPONSE, response);
+        i.putExtra(CATEGORY, category);
         startActivity(i);
     }
 

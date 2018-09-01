@@ -3,7 +3,9 @@ package ru.shadowsparky.news.pojo.event_view;
 import java.io.Serializable;
 import java.util.List;
 
-public class EventResponse implements Serializable {
+import ru.shadowsparky.news.callbacks.Response;
+
+public class EventResponse implements Serializable, Response {
     String team1 = "";
     String team2 = "";
     String time = "";

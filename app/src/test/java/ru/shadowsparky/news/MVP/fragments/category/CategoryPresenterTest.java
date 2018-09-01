@@ -3,11 +3,11 @@ package ru.shadowsparky.news.MVP.fragments.category;
 import org.junit.Before;
 import org.junit.Test;
 
-import ru.shadowsparky.news.OnCardClickedCallback;
+import ru.shadowsparky.news.callbacks.OnCardClicked;
+import ru.shadowsparky.news.callbacks.ResponseHandler;
 import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -28,7 +28,7 @@ public class CategoryPresenterTest {
     @Test
     public void onGetCategoryRequesting() {
         presenter.onGetCategoryRequesting("category");
-        verify(model).getCategoryRequest(any(Category.RequestCallback.class), eq("category"));
+        verify(model).getCategoryRequest(any(ResponseHandler.class), eq("category"));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class CategoryPresenterTest {
     public void onSuccessRequest() {
         CategoryEvents events = new CategoryEvents();
         presenter.onRequestHandled(events);
-        verify(view).setAdapter(eq(events), any(OnCardClickedCallback.class));
+        verify(view).setAdapter(eq(events), any(OnCardClicked.class));
     }
 
     @Test

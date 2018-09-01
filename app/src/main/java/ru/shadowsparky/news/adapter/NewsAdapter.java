@@ -10,16 +10,16 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import ru.shadowsparky.news.OnCardClickedCallback;
 import ru.shadowsparky.news.R;
+import ru.shadowsparky.news.callbacks.OnCardClicked;
 import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MainViewHolder> {
     List<CategoryResponse> events;
-    OnCardClickedCallback callback;
+    OnCardClicked callback;
 
-    public NewsAdapter(CategoryEvents events, OnCardClickedCallback callback) {
+    public NewsAdapter(CategoryEvents events, OnCardClicked callback) {
         this.events = events.getEvents();
         this.callback = callback;
     }

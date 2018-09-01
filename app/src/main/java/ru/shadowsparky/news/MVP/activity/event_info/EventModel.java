@@ -7,6 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.shadowsparky.news.Requester;
 import ru.shadowsparky.news.api.Api;
+import ru.shadowsparky.news.callbacks.ResponseHandler;
 
 public class EventModel implements Event.Model {
     String link;
@@ -16,16 +17,16 @@ public class EventModel implements Event.Model {
     }
 
     @Override
-    public void getEventInfo(Event.GetEventInfoCallback callback) {
+    public void getEventInfo(ResponseHandler callback) {
         Api api = new Requester().getApi();
         Observable.just(link)
                 .observeOn(Schedulers.io())
                 .map(item -> api.getEventInfo(item).blockingFirst())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        next -> callback.handleRequest(next),
+                        next -> callback.handle(next),
                         error -> {
-                            callback.handleRequest(null);
+                            callback.handle(null);
                             Log.println(Log.DEBUG, "MAIN_TAG", error.toString());
                         }
                 );

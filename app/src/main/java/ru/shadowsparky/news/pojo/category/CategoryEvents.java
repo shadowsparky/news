@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-public class CategoryEvents implements Serializable {
+import ru.shadowsparky.news.callbacks.Response;
+
+public class CategoryEvents implements Serializable, Response {
     @SerializedName("events")
     List<CategoryResponse> events;
 

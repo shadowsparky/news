@@ -2,7 +2,9 @@ package ru.shadowsparky.news.pojo.category;
 
 import java.io.Serializable;
 
-public class CategoryResponse implements Serializable {
+import ru.shadowsparky.news.callbacks.Response;
+
+public class CategoryResponse implements Serializable, Response {
     private String title = "";
     private String coefficient = "";
     private String time = "";

@@ -1,26 +1,24 @@
 package ru.shadowsparky.news.MVP.fragments.category;
 
-import ru.shadowsparky.news.OnCardClickedCallback;
+import ru.shadowsparky.news.callbacks.OnCardClicked;
+import ru.shadowsparky.news.callbacks.ResponseHandler;
+import ru.shadowsparky.news.callbacks.Response;
 import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
 public interface Category {
     interface View {
-        void setAdapter(CategoryEvents events, OnCardClickedCallback clickListener);
+        void setAdapter(CategoryEvents events, OnCardClicked clickListener);
         void setLoading(Boolean result);
         void showErrorToast();
         void navigateToEventInfo(CategoryResponse response);
     }
     interface Presenter {
         void onGetCategoryRequesting(String category);
-        void onRequestHandled(CategoryEvents events);
-        void onCardClicked(CategoryResponse response);
+        void onRequestHandled(Response events);
+        void onCardClicked(Response response);
     }
     interface Model {
-        void getCategoryRequest(RequestCallback callback, String category);
-    }
-
-    interface RequestCallback {
-        void handleRequest(CategoryEvents events);
+        void getCategoryRequest(ResponseHandler callback, String category);
     }
 }

@@ -1,5 +1,7 @@
 package ru.shadowsparky.news.MVP.activity.event_info;
 
+import ru.shadowsparky.news.callbacks.ResponseHandler;
+import ru.shadowsparky.news.callbacks.Response;
 import ru.shadowsparky.news.pojo.event_view.EventResponse;
 
 public interface Event {
@@ -11,13 +13,9 @@ public interface Event {
     }
     interface Presenter {
         void onGetEventInfoRequest();
-        void onRequestHandled(EventResponse response);
+        void onRequestHandled(Response response);
     }
     interface Model {
-        void getEventInfo(GetEventInfoCallback callback);
-    }
-
-    interface GetEventInfoCallback {
-        void handleRequest(EventResponse response);
+        void getEventInfo(ResponseHandler callback);
     }
 }

@@ -4,7 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class EventArticle implements Serializable {
+import ru.shadowsparky.news.callbacks.Response;
+
+public class EventArticle implements Serializable, Response {
     @SerializedName("header")
     String header = "";
     String text = "";

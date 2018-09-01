@@ -12,6 +12,8 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.internal.schedulers.ExecutorScheduler;
 import io.reactivex.plugins.RxJavaPlugins;
+import ru.shadowsparky.news.callbacks.ResponseHandler;
+import ru.shadowsparky.news.callbacks.Response;
 import ru.shadowsparky.news.pojo.category.CategoryEvents;
 
 import static org.junit.Assert.*;
@@ -21,8 +23,8 @@ import static org.mockito.Mockito.verify;
 
 public class CategoryModelTest {
     Category.Model model;
-    Category.RequestCallback nullCallback;
-    Category.RequestCallback nonNullCallback;
+    ResponseHandler nullCallback;
+    ResponseHandler nonNullCallback;
 
     @BeforeClass
     public static void setUpRxSchedulers() {
@@ -44,15 +46,15 @@ public class CategoryModelTest {
     @Before
     public void setUp() throws Exception {
         model = spy(new CategoryModel());
-        nullCallback = spy(new Category.RequestCallback() {
+        nullCallback = spy(new ResponseHandler() {
             @Override
-            public void handleRequest(CategoryEvents events) {
+            public void handle(Response events) {
                 assertNull(events);
             }
         });
-        nonNullCallback = spy(new Category.RequestCallback() {
+        nonNullCallback = spy(new ResponseHandler() {
             @Override
-            public void handleRequest(CategoryEvents events) {
+            public void handle(Response events) {
                 assertNotNull(events);
             }
         });
@@ -61,12 +63,12 @@ public class CategoryModelTest {
     @Test
     public void onCategoryFailure() {
         model.getCategoryRequest(nullCallback, "fail");
-        verify(nullCallback).handleRequest(null);
+        verify(nullCallback).handle(null);
     }
 
     @Test
     public void onCategorySuccess() {
         model.getCategoryRequest(nonNullCallback, "football");
-        verify(nonNullCallback).handleRequest(any(CategoryEvents.class));
+        verify(nonNullCallback).handle(any(CategoryEvents.class));
     }
 }

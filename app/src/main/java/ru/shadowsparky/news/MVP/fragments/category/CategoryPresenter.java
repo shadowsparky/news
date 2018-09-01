@@ -1,5 +1,6 @@
 package ru.shadowsparky.news.MVP.fragments.category;
 
+import ru.shadowsparky.news.callbacks.Response;
 import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
@@ -19,9 +20,9 @@ public class CategoryPresenter implements Category.Presenter {
     }
 
     @Override
-    public void onRequestHandled(CategoryEvents events) {
-        if (events != null) {
-            view.setAdapter(events, this::onCardClicked);
+    public void onRequestHandled(Response response) {
+        if ((response != null) && (response instanceof CategoryEvents)) {
+            view.setAdapter((CategoryEvents)response, this::onCardClicked);
         } else {
             view.showErrorToast();
         }
@@ -29,9 +30,9 @@ public class CategoryPresenter implements Category.Presenter {
     }
 
     @Override
-    public void onCardClicked(CategoryResponse response) {
-        if (response != null) {
-            view.navigateToEventInfo(response);
+    public void onCardClicked(Response response) {
+        if ((response != null) && (response instanceof CategoryResponse)) {
+            view.navigateToEventInfo((CategoryResponse)response);
         }
     }
 }
