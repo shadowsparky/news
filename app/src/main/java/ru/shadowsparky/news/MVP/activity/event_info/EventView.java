@@ -117,10 +117,10 @@ public class EventView extends AppCompatActivity implements Event.View {
     @Override
     public void showErrorToast() {
         Toast.makeText(this, R.string.connection_error, Toast.LENGTH_SHORT).show();
-        collapsingToolbarLayout.setTitle(getString(R.string.event_loading_error));
-        teams.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        teams.setText(R.string.event_loading_error);
-        collapsingToolbarLayout.setBackgroundResource(android.R.color.holo_red_light);
+//        collapsingToolbarLayout.setTitle(getString(R.string.event_loading_error));
+//        teams.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+//        teams.setText(R.string.event_loading_error);
+//        collapsingToolbarLayout.setBackgroundResource(android.R.color.holo_red_light);
     }
 
     @Override
