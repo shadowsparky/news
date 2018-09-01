@@ -11,6 +11,7 @@ public interface Event {
     }
     interface Presenter {
         void onGetEventInfoRequest();
+        void onRequestHandled(EventResponse response);
     }
     interface Model {
         void getEventInfo(GetEventInfoCallback callback);

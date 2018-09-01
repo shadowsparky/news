@@ -1,4 +1,5 @@
 package ru.shadowsparky.news.MVP.fragments.category;
+
 import android.util.Log;
 
 import io.reactivex.Observable;
@@ -6,15 +7,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.shadowsparky.news.Requester;
 import ru.shadowsparky.news.api.Api;
-import ru.shadowsparky.news.pojo.category.CategoryEvents;
 
 public class CategoryModel implements Category.Model {
-    interface RequestCallback {
-        void handleRequest(CategoryEvents events);
-    }
 
     @Override
-    public void getCategoryRequest(RequestCallback callback, String category) {
+    public void getCategoryRequest(Category.RequestCallback callback, String category) {
         Api api = new Requester().getApi();
         Observable.just(category)
         .observeOn(Schedulers.io())
@@ -23,8 +20,8 @@ public class CategoryModel implements Category.Model {
         .subscribe(
                 next -> callback.handleRequest(next),
                 error -> {
-                    Log.println(Log.DEBUG, "MAIN_TAG", error.toString());
                     callback.handleRequest(null);
+                    Log.println(Log.DEBUG, "MAIN_TAG", error.toString());
                 }
         );
     }

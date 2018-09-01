@@ -1,6 +1,6 @@
 package ru.shadowsparky.news.MVP.fragments.category;
 
-import ru.shadowsparky.news.R;
+import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
 public class CategoryPresenter implements Category.Presenter {
@@ -15,18 +15,23 @@ public class CategoryPresenter implements Category.Presenter {
     @Override
     public void onGetCategoryRequesting(String category) {
         view.setLoading(true);
-        CategoryModel.RequestCallback callback = (result) -> {
-            if (result != null) {
-                view.setAdapter(result, this::onCardClicked);
-            } else {
-                view.showToast(R.string.connection_error);
-            }
-            view.setLoading(false);
-        };
-        model.getCategoryRequest(callback, category);
+        model.getCategoryRequest(this::onRequestHandled, category);
     }
 
+    @Override
+    public void onRequestHandled(CategoryEvents events) {
+        if (events != null) {
+            view.setAdapter(events, this::onCardClicked);
+        } else {
+            view.showErrorToast();
+        }
+        view.setLoading(false);
+    }
+
+    @Override
     public void onCardClicked(CategoryResponse response) {
-        view.navigateToEventInfo(response);
+        if (response != null) {
+            view.navigateToEventInfo(response);
+        }
     }
 }

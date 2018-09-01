@@ -8,13 +8,19 @@ public interface Category {
     interface View {
         void setAdapter(CategoryEvents events, OnCardClickedCallback clickListener);
         void setLoading(Boolean result);
-        void showToast(int id);
+        void showErrorToast();
         void navigateToEventInfo(CategoryResponse response);
     }
     interface Presenter {
         void onGetCategoryRequesting(String category);
+        void onRequestHandled(CategoryEvents events);
+        void onCardClicked(CategoryResponse response);
     }
     interface Model {
-        void getCategoryRequest(CategoryModel.RequestCallback callback, String category);
+        void getCategoryRequest(RequestCallback callback, String category);
+    }
+
+    interface RequestCallback {
+        void handleRequest(CategoryEvents events);
     }
 }

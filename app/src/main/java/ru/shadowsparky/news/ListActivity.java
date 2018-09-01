@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import ru.shadowsparky.news.MVP.fragments.category.MenuFragment;
+import ru.shadowsparky.news.MVP.fragments.category.CategoryView;
 
 public class ListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static final String FOOTBALL_ITEM = "football";
@@ -86,7 +86,7 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void inflate(String category) {
-        MenuFragment fragment = new MenuFragment();
+        CategoryView fragment = new CategoryView();
         Bundle bundle = new Bundle();
         bundle.putString("CATEGORY", category);
         fragment.setArguments(bundle);

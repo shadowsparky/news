@@ -21,7 +21,7 @@ import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
 
-public class MenuFragment extends Fragment implements Category.View {
+public class CategoryView extends Fragment implements Category.View {
     RecyclerView list;
     Category.Presenter presenter;
     SwipeRefreshLayout refresher;
@@ -64,8 +64,8 @@ public class MenuFragment extends Fragment implements Category.View {
     }
 
     @Override
-    public void showToast(int id) {
-        Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
+    public void showErrorToast() {
+        Toast.makeText(getContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

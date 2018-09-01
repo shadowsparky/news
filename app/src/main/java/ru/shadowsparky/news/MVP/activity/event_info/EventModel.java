@@ -25,8 +25,8 @@ public class EventModel implements Event.Model {
                 .subscribe(
                         next -> callback.handleRequest(next),
                         error -> {
-                            Log.println(Log.DEBUG, "MAIN_TAG", error.toString());
                             callback.handleRequest(null);
+                            Log.println(Log.DEBUG, "MAIN_TAG", error.toString());
                         }
                 );
     }

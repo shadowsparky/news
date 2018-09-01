@@ -1,5 +1,7 @@
 package ru.shadowsparky.news.MVP.activity.event_info;
 
+import ru.shadowsparky.news.pojo.event_view.EventResponse;
+
 public class EventPresenter implements Event.Presenter {
     Event.View view;
     Event.Model model;
@@ -12,15 +14,17 @@ public class EventPresenter implements Event.Presenter {
     @Override
     public void onGetEventInfoRequest() {
         view.setLoading(true);
-        Event.GetEventInfoCallback callback = response -> {
-            if (response != null) {
-                view.setAdapter(response);
-                view.setData(response);
-            } else {
-                view.showErrorToast();
-            }
-            view.setLoading(false);
-        };
-        model.getEventInfo(callback);
+        model.getEventInfo(this::onRequestHandled);
+    }
+
+    @Override
+    public void onRequestHandled(EventResponse response) {
+        if (response != null) {
+            view.setAdapter(response);
+            view.setData(response);
+        } else {
+            view.showErrorToast();
+        }
+        view.setLoading(false);
     }
 }
