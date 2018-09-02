@@ -24,11 +24,13 @@ import ru.shadowsparky.news.pojo.event_view.EventArticle;
 import ru.shadowsparky.news.pojo.event_view.EventResponse;
 
 import static ru.shadowsparky.news.ListActivity.BASKETBALL_ITEM;
+import static ru.shadowsparky.news.ListActivity.CATEGORY;
 import static ru.shadowsparky.news.ListActivity.CYBERSPORT_ITEM;
 import static ru.shadowsparky.news.ListActivity.FOOTBALL_ITEM;
 import static ru.shadowsparky.news.ListActivity.HOCKEY_ITEM;
 import static ru.shadowsparky.news.ListActivity.TENNIS_ITEM;
 import static ru.shadowsparky.news.ListActivity.VOLLEYBALL_ITEM;
+import static ru.shadowsparky.news.MVP.fragments.category.CategoryView.RESPONSE;
 
 public class EventView extends AppCompatActivity implements Event.View {
     Event.Presenter presenter;
@@ -43,13 +45,13 @@ public class EventView extends AppCompatActivity implements Event.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_view);
-        item = (CategoryResponse) getIntent().getSerializableExtra("RESPONSE");
-        category = getIntent().getStringExtra("CATEGORY");
+        item = (CategoryResponse) getIntent().getSerializableExtra(RESPONSE);
+        category = getIntent().getStringExtra(CATEGORY);
         list = findViewById(R.id.event_articles_list);
         teams = findViewById(R.id.event_teams);
         loading = findViewById(R.id.event_loading);
         presenter = new EventPresenter(this, new EventModel(item.getArticle()));
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
         Toolbar toolbar = findViewById(R.id.event_toolbar);
         setSupportActionBar(toolbar);
         toolbarInit();
@@ -151,3 +153,4 @@ public class EventView extends AppCompatActivity implements Event.View {
         place.setText(response.getPlace());
     }
 }
+    
