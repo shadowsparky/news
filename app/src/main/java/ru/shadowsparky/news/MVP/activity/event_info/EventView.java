@@ -30,7 +30,7 @@ import static ru.shadowsparky.news.ListActivity.FOOTBALL_ITEM;
 import static ru.shadowsparky.news.ListActivity.HOCKEY_ITEM;
 import static ru.shadowsparky.news.ListActivity.TENNIS_ITEM;
 import static ru.shadowsparky.news.ListActivity.VOLLEYBALL_ITEM;
-import static ru.shadowsparky.news.MVP.fragments.category.CategoryView.RESPONSE;
+import static ru.shadowsparky.news.callbacks.Response.RESPONSE;
 
 public class EventView extends AppCompatActivity implements Event.View {
     Event.Presenter presenter;

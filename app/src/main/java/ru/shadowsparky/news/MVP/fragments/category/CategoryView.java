@@ -21,15 +21,18 @@ import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
 import static ru.shadowsparky.news.ListActivity.CATEGORY;
+import static ru.shadowsparky.news.callbacks.Response.RESPONSE;
 
 
 public class CategoryView extends Fragment implements Category.View {
-    public static final String RESPONSE = "RESPONSE";
+    public static final String ADAPTER = "ADAPTER";
+    public static final String EVENTS = "EVENTS";
+    public static final String PRESENTER = "PRESENTER";
     RecyclerView list;
     Category.Presenter presenter;
     SwipeRefreshLayout refresher;
     String category;
-
+    NewsAdapter adapter;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,18 +42,28 @@ public class CategoryView extends Fragment implements Category.View {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        list = view.findViewById(R.id.category_list);
-        refresher = view.findViewById(R.id.refresher);
-        refresher.setOnRefreshListener(()-> presenter.onGetCategoryRequesting(category));
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         presenter.onGetCategoryRequesting(category);
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        list = view.findViewById(R.id.category_list);
+        refresher = view.findViewById(R.id.refresher);
+        refresher.setOnRefreshListener(() -> presenter.onGetCategoryRequesting(category));
+    }
+
+    @Override
     public void setAdapter(CategoryEvents events, OnCardClicked callback) {
+        adapter = new NewsAdapter(events, callback);
+        setAdapter(adapter);
+    }
+
+    @Override
+    public void setAdapter(NewsAdapter adapter) {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        NewsAdapter adapter = new NewsAdapter(events, callback);
         list.setLayoutManager(llm);
         list.setHasFixedSize(false);
         list.setAdapter(adapter);

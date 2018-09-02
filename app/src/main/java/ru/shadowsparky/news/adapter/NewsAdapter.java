@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,7 @@ import ru.shadowsparky.news.callbacks.OnCardClicked;
 import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MainViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MainViewHolder> implements Serializable {
     List<CategoryResponse> events;
     OnCardClicked callback;
 
@@ -34,7 +35,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MainViewHolder
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
         CategoryResponse item = events.get(position);
-        holder.card.setOnClickListener(view -> callback.cardClicked(item));
+        holder.card.setOnClickListener(view ->
+                callback.cardClicked(item)
+        );
         holder.title.setText(item.getTitle());
         holder.preview.setText(item.getPreview());
         holder.coefficient.setText(item.getCoefficient());
@@ -47,7 +50,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MainViewHolder
         return events.size();
     }
 
-    class MainViewHolder extends RecyclerView.ViewHolder {
+    class MainViewHolder extends RecyclerView.ViewHolder implements Serializable {
         private TextView title;
         private TextView preview;
         private TextView coefficient;
@@ -55,7 +58,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MainViewHolder
         private TextView place;
         private CardView card;
 
-        public MainViewHolder(@NonNull View itemView) {
+        public MainViewHolder(@NonNull View itemView)  {
             super(itemView);
             title = itemView.findViewById(R.id.item_title);
             preview = itemView.findViewById(R.id.item_preview);

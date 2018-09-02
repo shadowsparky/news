@@ -1,5 +1,7 @@
 package ru.shadowsparky.news.callbacks;
 
-public interface OnCardClicked {
+import java.io.Serializable;
+
+public interface OnCardClicked extends Serializable {
     void cardClicked(Response response);
 }

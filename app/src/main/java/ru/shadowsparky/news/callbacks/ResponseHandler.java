@@ -1,5 +1,7 @@
 package ru.shadowsparky.news.callbacks;
 
-public interface ResponseHandler {
+import java.io.Serializable;
+
+public interface ResponseHandler extends Serializable {
     void handle(Response response);
 }
