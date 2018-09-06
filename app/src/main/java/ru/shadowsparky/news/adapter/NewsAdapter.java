@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,7 @@ import ru.shadowsparky.news.callbacks.OnCardClicked;
 import ru.shadowsparky.news.pojo.category.CategoryEvents;
 import ru.shadowsparky.news.pojo.category.CategoryResponse;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MainViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MainViewHolder> implements Serializable {
     List<CategoryResponse> events;
     OnCardClicked callback;
 

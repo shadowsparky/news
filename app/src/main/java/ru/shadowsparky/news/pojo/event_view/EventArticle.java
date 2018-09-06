@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 import ru.shadowsparky.news.callbacks.Response;
 
-public class EventArticle implements Serializable, Response {
+public class EventArticle implements Response {
     @SerializedName("header")
     String header = "";
     String text = "";

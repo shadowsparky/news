@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import ru.shadowsparky.news.callbacks.Response;
 
-public class CategoryResponse implements Serializable, Response {
+public class CategoryResponse implements Response {
     private String title = "";
     private String coefficient = "";
     private String time = "";

@@ -1,5 +1,6 @@
 package ru.shadowsparky.news.MVP.fragments.category;
 
+import ru.shadowsparky.news.adapter.NewsAdapter;
 import ru.shadowsparky.news.callbacks.OnCardClicked;
 import ru.shadowsparky.news.callbacks.ResponseHandler;
 import ru.shadowsparky.news.callbacks.Response;
@@ -11,6 +12,7 @@ public interface Category {
         void setAdapter(CategoryEvents events, OnCardClicked clickListener);
         void setLoading(Boolean result);
         void showErrorToast();
+        void setAdapter(NewsAdapter adapter);
         void navigateToEventInfo(CategoryResponse response);
     }
     interface Presenter {

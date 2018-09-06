@@ -19,8 +19,11 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
     public static final String VOLLEYBALL_ITEM = "volleyball";
     public static final String CYBERSPORT_ITEM = "cybersport";
     public static final String CATEGORY = "CATEGORY";
+    public static final String FRAGMENT = "FRAGMENT";
+    public static final String TITLE = "TITLE";
     NavigationView mNavigation;
     DrawerLayout mDrawer;
+    CategoryView fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,21 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
         mNavigation = findViewById(R.id.navigation_drawer);
         mDrawer = findViewById(R.id.drawer_layout);
         mNavigation.setNavigationItemSelectedListener(this);
-        openFirstCategory();
+        if (savedInstanceState == null) {
+            openFirstCategory();
+        } else {
+            fragment = (CategoryView) getSupportFragmentManager().getFragment(savedInstanceState, FRAGMENT);
+            setTitle(savedInstanceState.getString(TITLE));
+        }
+    }
+
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, FRAGMENT, fragment);
+        outState.putString(TITLE, getTitle().toString());
     }
 
     public void openFirstCategory() {
@@ -87,7 +104,8 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void inflate(String category) {
-        CategoryView fragment = new CategoryView();
+        fragment = new CategoryView();
+        fragment.setRetainInstance(true);
         Bundle bundle = new Bundle();
         bundle.putString(CATEGORY, category);
         fragment.setArguments(bundle);

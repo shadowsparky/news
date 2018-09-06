@@ -30,15 +30,24 @@ import static ru.shadowsparky.news.ListActivity.FOOTBALL_ITEM;
 import static ru.shadowsparky.news.ListActivity.HOCKEY_ITEM;
 import static ru.shadowsparky.news.ListActivity.TENNIS_ITEM;
 import static ru.shadowsparky.news.ListActivity.VOLLEYBALL_ITEM;
-import static ru.shadowsparky.news.MVP.fragments.category.CategoryView.RESPONSE;
+import static ru.shadowsparky.news.MVP.fragments.category.CategoryView.ADAPTER;
+import static ru.shadowsparky.news.callbacks.Response.RESPONSE;
 
 public class EventView extends AppCompatActivity implements Event.View {
+    public static final String PLACE = "PLACE";
+    public static final String TOURNAMENT = "TOURNAMENT";
+    public static final String TIME = "TIME";
+    public static final String TEAMS = "TEAMS";
     Event.Presenter presenter;
     CategoryResponse item;
     ProgressBar loading;
     RecyclerView list;
     String category;
     TextView teams;
+    TextView time;
+    TextView tournament;
+    TextView place;
+    ArticleAdapter adapter;
     CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
@@ -55,6 +64,12 @@ public class EventView extends AppCompatActivity implements Event.View {
         Toolbar toolbar = findViewById(R.id.event_toolbar);
         setSupportActionBar(toolbar);
         toolbarInit();
+        time = findViewById(R.id.event_time);
+        tournament = findViewById(R.id.event_tournament);
+        place = findViewById(R.id.event_place);
+        if (savedInstanceState == null) {
+            presenter.onGetEventInfoRequest();
+        }
         Log.println(Log.DEBUG, "MAIN_TAG", "link: " + item.getArticle());
     }
 
@@ -64,7 +79,31 @@ public class EventView extends AppCompatActivity implements Event.View {
         getSupportActionBar().setTitle(R.string.event_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
-        presenter.onGetEventInfoRequest();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        adapter = (ArticleAdapter) savedInstanceState.getSerializable(ADAPTER);
+        if (adapter != null) {
+            setAdapter(adapter);
+            teams.setText(savedInstanceState.getString(TEAMS));
+            time.setText(savedInstanceState.getString(TIME));
+            tournament.setText(savedInstanceState.getString(TOURNAMENT));
+            place.setText(savedInstanceState.getString(PLACE));
+        } else {
+            presenter.onGetEventInfoRequest();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(ADAPTER, adapter);
+        outState.putString(TEAMS, teams.getText().toString());
+        outState.putString(TIME, time.getText().toString());
+        outState.putString(TOURNAMENT, tournament.getText().toString());
+        outState.putString(PLACE, place.getText().toString());
     }
 
     private void toolbarInit() {
@@ -119,10 +158,10 @@ public class EventView extends AppCompatActivity implements Event.View {
     @Override
     public void showErrorToast() {
         Toast.makeText(this, R.string.connection_error, Toast.LENGTH_SHORT).show();
-//        collapsingToolbarLayout.setTitle(getString(R.string.event_loading_error));
-//        teams.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-//        teams.setText(R.string.event_loading_error);
-//        collapsingToolbarLayout.setBackgroundResource(android.R.color.holo_red_light);
+        collapsingToolbarLayout.setTitle(getString(R.string.event_loading_error));
+        teams.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        teams.setText(R.string.event_loading_error);
+        collapsingToolbarLayout.setBackgroundResource(android.R.color.holo_red_light);
     }
 
     @Override
@@ -133,24 +172,24 @@ public class EventView extends AppCompatActivity implements Event.View {
                     .setHeader("Предсказание")
                     .setText(response.getPrediction());
             data.add(articles);
-            LinearLayoutManager llm = new LinearLayoutManager(this);
-            ArticleAdapter adapter = new ArticleAdapter(data);
-            list.setLayoutManager(llm);
-            list.setHasFixedSize(false);
-            list.setAdapter(adapter);
+            adapter = new ArticleAdapter(data);
+            setAdapter(adapter);
         }
     }
 
     @Override
+    public void setAdapter(ArticleAdapter adapter) {
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        list.setLayoutManager(llm);
+        list.setHasFixedSize(false);
+        list.setAdapter(adapter);
+    }
+
+    @Override
     public void setData(EventResponse response) {
-        TextView teams = findViewById(R.id.event_teams);
-        TextView time = findViewById(R.id.event_time);
-        TextView tournament = findViewById(R.id.event_tournament);
-        TextView place = findViewById(R.id.event_place);
         teams.setText(response.getTeam1() + " vs " + response.getTeam2());
         time.setText(response.getTime());
         tournament.setText(response.getTournament());
         place.setText(response.getPlace());
     }
 }
-    

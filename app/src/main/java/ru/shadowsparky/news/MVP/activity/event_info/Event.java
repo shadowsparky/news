@@ -1,5 +1,6 @@
 package ru.shadowsparky.news.MVP.activity.event_info;
 
+import ru.shadowsparky.news.adapter.ArticleAdapter;
 import ru.shadowsparky.news.callbacks.ResponseHandler;
 import ru.shadowsparky.news.callbacks.Response;
 import ru.shadowsparky.news.pojo.event_view.EventResponse;
@@ -10,6 +11,7 @@ public interface Event {
         void showErrorToast();
         void setAdapter(EventResponse response);
         void setData(EventResponse response);
+        void setAdapter(ArticleAdapter adapter);
     }
     interface Presenter {
         void onGetEventInfoRequest();

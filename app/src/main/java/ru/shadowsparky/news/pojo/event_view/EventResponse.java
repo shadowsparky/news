@@ -5,7 +5,7 @@ import java.util.List;
 
 import ru.shadowsparky.news.callbacks.Response;
 
-public class EventResponse implements Serializable, Response {
+public class EventResponse implements Response {
     String team1 = "";
     String team2 = "";
     String time = "";

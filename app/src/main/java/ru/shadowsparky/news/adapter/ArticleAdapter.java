@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import ru.shadowsparky.news.R;
 import ru.shadowsparky.news.pojo.event_view.EventArticle;
 
-public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MainViewHolder> {
+public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MainViewHolder> implements Serializable {
     List<EventArticle> articles;
 
     public ArticleAdapter(List<EventArticle> articles) {

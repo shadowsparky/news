@@ -7,7 +7,7 @@ import java.util.List;
 
 import ru.shadowsparky.news.callbacks.Response;
 
-public class CategoryEvents implements Serializable, Response {
+public class CategoryEvents implements Response {
     @SerializedName("events")
     List<CategoryResponse> events;
 
