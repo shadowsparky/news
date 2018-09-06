@@ -1,9 +1,12 @@
 package ru.shadowsparky.news.adapter;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.common.base.Strings;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import ru.shadowsparky.news.R;
+import ru.shadowsparky.news.Validator;
 import ru.shadowsparky.news.pojo.event_view.EventArticle;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MainViewHolder> implements Serializable {
@@ -31,7 +35,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MainView
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
         EventArticle event = articles.get(position);
-        if (event.getHeader().isEmpty() && event.getText().isEmpty()) {
+        if (Validator.isNullOrBlank(event.getHeader()) && Validator.isNullOrBlank(event.getText())) {
             holder.card.setVisibility(View.GONE);
         } else {
             verifyData(holder, event);
@@ -39,13 +43,14 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MainView
     }
 
     protected void verifyData(MainViewHolder holder, EventArticle event) {
-        if (event.getHeader().isEmpty()) {
+        if (Validator.isNullOrBlank(event.getHeader())) {
             holder.title.setVisibility(View.GONE);
         } else {
             holder.title.setText(event.getHeader());
         }
-        if (event.getText().isEmpty()) {
-            holder.text.setVisibility(View.GONE);
+        if (Validator.isNullOrBlank(event.getText())) {
+//            holder.text.setVisibility(View.GONE);
+            holder.text.setText("Данные отсутствуют");
         } else {
             holder.text.setText(event.getText());
         }
