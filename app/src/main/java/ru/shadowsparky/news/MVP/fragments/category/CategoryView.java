@@ -23,7 +23,7 @@ import ru.shadowsparky.news.pojo.category.CategoryResponse;
 import static ru.shadowsparky.news.ListActivity.CATEGORY;
 
 
-public class CategoryView extends Fragment implements Category.View {
+public class    CategoryView extends Fragment implements Category.View {
     public static final String RESPONSE = "RESPONSE";
     RecyclerView list;
     Category.Presenter presenter;

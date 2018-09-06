@@ -8,6 +8,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import ru.shadowsparky.news.R;
 import ru.shadowsparky.news.pojo.event_view.EventArticle;
@@ -29,13 +30,24 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MainView
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
         EventArticle event = articles.get(position);
-        if (event.getHeader().equals(""))  {
+        if (event.getHeader().isEmpty() && event.getText().isEmpty()) {
+            holder.card.setVisibility(View.GONE);
+        } else {
+            verifyData(holder, event);
+        }
+    }
+
+    protected void verifyData(MainViewHolder holder, EventArticle event) {
+        if (event.getHeader().isEmpty()) {
             holder.title.setVisibility(View.GONE);
         } else {
-            holder.title.setVisibility(View.VISIBLE);
             holder.title.setText(event.getHeader());
         }
-        holder.text.setText(event.getText());
+        if (event.getText().isEmpty()) {
+            holder.text.setVisibility(View.GONE);
+        } else {
+            holder.text.setText(event.getText());
+        }
     }
 
     @Override
@@ -46,11 +58,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MainView
     class MainViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView text;
+        private CardView card;
 
         public MainViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.article_item_title);
             text = itemView.findViewById(R.id.article_item_text);
+            card = itemView.findViewById(R.id.article_item_card);
         }
     }
 }
